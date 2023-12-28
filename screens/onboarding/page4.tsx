@@ -1,8 +1,8 @@
 import { Image, Text, TouchableWithoutFeedback, View } from "react-native";
 import tw from 'twrnc';
 
-const Page3 = (): React.ReactNode => {
-  const image = require('../../public/images/onboarding/page3.png');
+const Page4 = (): React.ReactNode => {
+  const image = require('../../public/images/onboarding/page4.png');
 
   return (
     <View style={[tw`flex-1 flex flex-col`]}>
@@ -15,22 +15,20 @@ const Page3 = (): React.ReactNode => {
         />
 
         <Text style={[tw`text-2xl`, { fontFamily: "satoshi-bold" }]}>
-          Easy and Safe Payment
+          Product Delivery
         </Text>
         <Text style={[tw`text-center text-base px-3`, { fontFamily: "satoshi" }]}>
           Lorem ipsum dolor sit amet. Ut maiores voluptate qui doloremque consequuntur in mo
         </Text>
       </View>
 
-      <View style={[tw`w-[100%] flex items-end`]}>
-        <TouchableWithoutFeedback>
-          <Text style={[tw`py-5 px-16 text-xl bg-[#FFD763] text-white`]}>
-            Next
-          </Text>
-        </TouchableWithoutFeedback>
-      </View>
+      <TouchableWithoutFeedback>
+        <Text style={[tw`py-5 mx-auto w-[90%] my-5 rounded-full text-center text-xl bg-[#000] text-white`]}>
+          Continue
+        </Text>
+      </TouchableWithoutFeedback>
     </View>
   )
 }
 
-export default Page3;
+export default Page4;

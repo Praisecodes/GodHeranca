@@ -4,6 +4,8 @@ import PagerView from "react-native-pager-view";
 import tw from 'twrnc';
 import Page1 from "./page1";
 import Page2 from "./page2";
+import Page3 from "./page3";
+import Page4 from "./page4";
 
 const OnBoarding = (): React.ReactNode => {
   return (
@@ -12,9 +14,9 @@ const OnBoarding = (): React.ReactNode => {
 
       <Page2 key={2} />
 
-      <View key={3} style={tw`h-[100%] flex w-[100%] items-center justify-center`}>
-        <Text>Hello, Screen 3</Text>
-      </View>
+      <Page3 key={3} />
+
+      <Page4 key={4} />
     </PagerView>
   )
 }
