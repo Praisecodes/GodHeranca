@@ -9,7 +9,7 @@ const AuthNavigators = (): React.ReactNode => {
   return (
     <>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false, animation: "slide_from_right" }}>
           <Stack.Screen name="login" component={Login} />
           <Stack.Screen name="register" component={Register} />
           <Stack.Screen name="forgot_password" component={ForgotPasswordNavigators} />
