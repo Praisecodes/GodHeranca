@@ -16,8 +16,8 @@ const AuthLayout = ({ children, page, navigation }: IAuthLayout) => {
   return (
     <>
       <StatusBar style='auto' />
-      <View style={[tw`flex-1 pt-7 px-4 flex flex-col pb-5 justify-end`]}>
-        <Text style={[tw`text-5xl leading-normal`, { fontFamily: "satoshi-bold" }]}>
+      <View style={[tw`flex-1 bg-[#F0F0F0] pt-7 px-4 flex flex-col pb-5 justify-end`]}>
+        <Text style={[tw`text-5xl leading-normal mb-8`, { fontFamily: "satoshi-bold" }]}>
           {page == "login" ? "Login To Your Account" : "Create your Account"}
         </Text>
 
