@@ -6,10 +6,10 @@ const Page1 = (): React.ReactNode => {
   return (
     <ImageBackground source={backgroundImage} style={tw`flex-1 flex flex-col justify-end`}>
       <View style={tw`bg-[#00000033] p-7 max-h-[40%] w-[100%]`}>
-        <Text style={[tw`text-white text-3xl`, { fontFamily: "satoshi" }]}>
+        <Text style={[tw`text-white text-2xl`, { fontFamily: "satoshi" }]}>
           Welcome To
         </Text>
-        <Text style={[tw`text-6xl pt-2 text-white`, { fontFamily: "satoshi" }]}>
+        <Text style={[tw`text-5xl pt-2 text-white`, { fontFamily: "satoshi-bold" }]}>
           GodHeranca
         </Text>
 
