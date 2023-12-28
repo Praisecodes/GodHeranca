@@ -11,7 +11,8 @@ export default function App() {
   const setOnBoarded = useOnBoardingState((state) => state.setOnBoarded);
 
   const [fontLoaded] = useFonts({
-    'satoshi': require('./assets/fonts/Satoshi-Regular.otf')
+    'satoshi': require('./assets/fonts/Satoshi-Regular.otf'),
+    'satoshi-bold': require('./assets/fonts/Satoshi-Bold.otf'),
   });
 
   useEffect(() => {
