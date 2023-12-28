@@ -6,6 +6,6 @@ interface IOnboardingState {
 }
 
 export const useOnBoardingState = create<IOnboardingState>()((set) => ({
-  onboarded: false,
+  onboarded: true,
   setOnBoarded: (value: boolean) => set(() => ({ onboarded: value })),
 }))
