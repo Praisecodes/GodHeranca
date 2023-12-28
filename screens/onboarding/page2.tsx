@@ -1,7 +1,7 @@
 import { Image, Text, TouchableWithoutFeedback, View } from "react-native";
 import tw from 'twrnc';
 
-const Page2 = (): React.ReactNode => {
+const Page2 = ({ handleSwitchScreens }: { handleSwitchScreens: (pageNumber: number) => any }): React.ReactNode => {
   const image = require('../../public/images/onboarding/page2.png');
 
   return (
@@ -17,13 +17,13 @@ const Page2 = (): React.ReactNode => {
         <Text style={[tw`text-2xl`, { fontFamily: "satoshi-bold" }]}>
           Find Favorite Items
         </Text>
-        <Text style={[tw`text-center text-base px-3`, {fontFamily: "satoshi"}]}>
+        <Text style={[tw`text-center text-base px-3`, { fontFamily: "satoshi" }]}>
           Lorem ipsum dolor sit amet. Ut maiores voluptate qui doloremque consequuntur in mo
         </Text>
       </View>
 
       <View style={[tw`w-[100%] flex items-end`]}>
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => { handleSwitchScreens(2) }}>
           <Text style={[tw`py-5 px-16 text-xl bg-[#FFD763] text-white`]}>
             Next
           </Text>

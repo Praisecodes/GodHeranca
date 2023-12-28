@@ -1,7 +1,7 @@
 import { Image, Text, TouchableWithoutFeedback, View } from "react-native";
 import tw from 'twrnc';
 
-const Page3 = (): React.ReactNode => {
+const Page3 = ({ handleSwitchScreens }: { handleSwitchScreens: (pageNumber: number) => any }): React.ReactNode => {
   const image = require('../../public/images/onboarding/page3.png');
 
   return (
@@ -23,7 +23,7 @@ const Page3 = (): React.ReactNode => {
       </View>
 
       <View style={[tw`w-[100%] flex items-end`]}>
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => { handleSwitchScreens(3) }}>
           <Text style={[tw`py-5 px-16 text-xl bg-[#FFD763] text-white`]}>
             Next
           </Text>

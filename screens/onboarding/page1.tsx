@@ -1,7 +1,7 @@
-import { ImageBackground, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { ImageBackground, Text, TouchableWithoutFeedback, View } from "react-native";
 import tw from 'twrnc';
 
-const Page1 = (): React.ReactNode => {
+const Page1 = ({ handleSwitchScreens }: { handleSwitchScreens: (pageNumber: number) => any }): React.ReactNode => {
   const backgroundImage = require('../../assets/images/onboarding/woman.jpg');
   return (
     <ImageBackground source={backgroundImage} style={tw`flex-1 flex flex-col justify-end`}>
@@ -18,7 +18,7 @@ const Page1 = (): React.ReactNode => {
           for your daliy needs
         </Text>
 
-        <TouchableWithoutFeedback onPress={() => { console.log("Clicked!!") }}>
+        <TouchableWithoutFeedback onPress={() => { handleSwitchScreens(1) }}>
           <Text style={[tw`bg-black text-white text-center py-4 text-lg mt-6 font-bold rounded-full`, { fontFamily: "satoshi" }]}>
             Get Started
           </Text>
