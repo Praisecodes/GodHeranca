@@ -1,15 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { Text, View } from "react-native"
 import tw from "twrnc";
+import { AuthLayout } from "../../layouts";
 
 const Login = (): React.ReactNode => {
   return (
-    <>
-      <StatusBar style="auto" />
-      <View style={[tw`flex-1`]}>
-        <Text>This is the login screen</Text>
-      </View>
-    </>
+    <AuthLayout page="login">
+      <Text>This is the login screen</Text>
+    </AuthLayout>
   )
 }
 
