@@ -1,6 +1,7 @@
 import { Image, Text, TouchableWithoutFeedback, View } from "react-native";
 import tw from 'twrnc';
 import { useOnBoardingState } from "../../zustand/AppStore";
+import { saveData } from "../../utils/async_storage";
 
 const Page4 = ({ handleSwitchScreens }: { handleSwitchScreens: (pageNumber: number) => any }): React.ReactNode => {
   const image = require('../../public/images/onboarding/page4.png');
@@ -24,7 +25,7 @@ const Page4 = ({ handleSwitchScreens }: { handleSwitchScreens: (pageNumber: numb
         </Text>
       </View>
 
-      <TouchableWithoutFeedback onPress={() => { setOnBoarded(true) }}>
+      <TouchableWithoutFeedback onPress={() => { saveData('onboarded', "true"); setOnBoarded(true); }}>
         <Text style={[tw`py-5 mx-auto w-[90%] my-5 rounded-full text-center text-xl bg-[#000] text-white`]}>
           Continue
         </Text>

@@ -20,7 +20,7 @@ export default function App() {
       let onBoard = await getData('onboarded');
       // console.log(onBoard);
 
-      if (onBoard == null) {
+      if (onBoard == null || onBoard !== "true") {
         setOnBoarded(false);
         return;
       }
@@ -31,7 +31,7 @@ export default function App() {
     runFirst();
   }, []);
 
-  if(!fontLoaded){
+  if (!fontLoaded) {
     return null;
   }
 
