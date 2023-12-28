@@ -5,7 +5,7 @@ const Stack = createNativeStackNavigator();
 
 const ForgotPasswordNavigators = (): React.ReactNode => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="select_contact" component={SelectContact} />
       <Stack.Screen name="otp" component={Otp} />
       <Stack.Screen name="new_password" component={NewPassword} />
