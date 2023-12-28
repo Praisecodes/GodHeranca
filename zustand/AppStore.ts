@@ -10,6 +10,11 @@ interface ILoggedInState {
   setLoggedIn: (value: boolean) => void,
 }
 
+interface IAccoutSetupState {
+  accountSetup: boolean,
+  setAccountSetup: (value: boolean) => void,
+}
+
 export const useOnBoardingState = create<IOnboardingState>()((set) => ({
   onboarded: true,
   setOnBoarded: (value: boolean) => set(() => ({ onboarded: value })),
@@ -18,4 +23,9 @@ export const useOnBoardingState = create<IOnboardingState>()((set) => ({
 export const useLoggedInState = create<ILoggedInState>()((set) => ({
   loggedIn: false,
   setLoggedIn: (value: boolean) => set(() => ({ loggedIn: value })),
+}));
+
+export const useAccountSetupState = create<IAccoutSetupState>()((set) => ({
+  accountSetup: false,
+  setAccountSetup: (value: boolean) => set(() => ({ accountSetup: value })),
 }));
