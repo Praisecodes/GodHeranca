@@ -6,9 +6,10 @@ import { StatusBar } from 'expo-status-bar';
 interface IAuthLayout {
   children: React.ReactNode,
   page: string,
+  navigation: any,
 }
 
-const AuthLayout = ({ children, page }: IAuthLayout) => {
+const AuthLayout = ({ children, page, navigation }: IAuthLayout) => {
   const facebook = require('../assets/images/facebook.png');
   const google = require('../assets/images/google.png');
 
@@ -47,7 +48,7 @@ const AuthLayout = ({ children, page }: IAuthLayout) => {
         <Text style={[tw`text-[#A5A5A5] text-base w-[100%] text-center flex flex-row gap-x-2`, { fontFamily: "satoshi-bold" }]}>
           {page == "login" ? "Don't have an account? " : "Already have an account? "}
 
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => { navigation.navigate(page == "login" ? "register" : "login") }}>
             <Text style={tw`text-black`}>
               {page == "login" ? "Sign up" : "Login"}
             </Text>

@@ -1,14 +1,13 @@
-import { StatusBar } from "expo-status-bar"
-import { View } from "react-native"
+import { View, Text } from "react-native";
+import { AuthLayout } from "../../layouts";
 
-const Register = (): React.ReactNode => {
+const Register = ({ navigation }: { navigation: any }): React.ReactNode => {
   return (
-    <>
-      <StatusBar style="auto" />
-      <View>
-
-      </View>
-    </>
+    <AuthLayout page="register" navigation={navigation}>
+      <Text>
+        This is the register screen
+      </Text>
+    </AuthLayout>
   )
 }
 
