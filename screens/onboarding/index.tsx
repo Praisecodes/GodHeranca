@@ -10,7 +10,7 @@ const OnBoarding = (): React.ReactNode => {
   const pagerRef = useRef(null);
 
   const handleSwitchScreens = (pageNumber: number): any => {
-    pagerRef.current.setPage(pageNumber);
+    pagerRef.current?.setPage(pageNumber);
   }
 
   return (
