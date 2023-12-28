@@ -15,7 +15,7 @@ const ForgotPasswordLayout = ({ children, title, navigation }: { children: React
         </Text>
       </View>
 
-      <ScrollView contentContainerStyle={[tw`min-h-[100%] px-3`]}>
+      <ScrollView contentContainerStyle={[tw`px-5 pb-3`]}>
         {children}
       </ScrollView>
     </View>
