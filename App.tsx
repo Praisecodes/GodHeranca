@@ -1,14 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { useOnBoardingState } from './zustand/AppStore';
+import { useLoggedInState, useOnBoardingState } from './zustand/AppStore';
 import OnBoarding from './screens/onboarding';
 import { useEffect } from 'react';
 import { getData } from './utils/async_storage';
 import { useFonts } from 'expo-font';
+import { MainAppNavigators } from './navigators';
 
 export default function App() {
   const onboarded = useOnBoardingState((state) => state.onboarded);
   const setOnBoarded = useOnBoardingState((state) => state.setOnBoarded);
+  const setLoggedIn = useLoggedInState((state) => state.setLoggedIn);
 
   const [fontLoaded] = useFonts({
     'satoshi': require('./assets/fonts/Satoshi-Regular.otf'),
@@ -18,14 +18,23 @@ export default function App() {
   useEffect(() => {
     const runFirst = async () => {
       let onBoard = await getData('onboarded');
+      let loggedIn = await getData('loggedIn');
       // console.log(onBoard);
 
       if (onBoard == null || onBoard !== "true") {
         setOnBoarded(false);
+        setLoggedIn(false);
         return;
       }
 
       setOnBoarded(true);
+
+      if (loggedIn == null || loggedIn !== "true") {
+        setLoggedIn(false);
+        return;
+      }
+
+      setLoggedIn(true);
     }
 
     runFirst();
@@ -36,18 +45,6 @@ export default function App() {
   }
 
   return (!onboarded ? (<OnBoarding />) :
-    <View style={styles.container}>
-      <Text>This is an ecommerce app</Text>
-      <StatusBar style="auto" />
-    </View>
+    <MainAppNavigators />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
