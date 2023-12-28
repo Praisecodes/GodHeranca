@@ -1,4 +1,4 @@
-import { Image, Text, View } from "react-native";
+import { Image, Text, TouchableWithoutFeedback, View } from "react-native";
 import tw from 'twrnc';
 
 const Page2 = (): React.ReactNode => {
@@ -20,6 +20,14 @@ const Page2 = (): React.ReactNode => {
         <Text style={[tw`text-center text-base px-3`, {fontFamily: "satoshi"}]}>
           Lorem ipsum dolor sit amet. Ut maiores voluptate qui doloremque consequuntur in mo
         </Text>
+      </View>
+
+      <View style={[tw`w-[100%] flex items-end`]}>
+        <TouchableWithoutFeedback>
+          <Text style={[tw`py-5 px-16 text-xl bg-[#FFD763] text-white`]}>
+            Next
+          </Text>
+        </TouchableWithoutFeedback>
       </View>
     </View>
   )
