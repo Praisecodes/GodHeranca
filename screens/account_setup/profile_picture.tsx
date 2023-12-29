@@ -1,17 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AccountSetupLayout from '../../layouts/account_setup_layout';
-import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import { Image, Text, TouchableWithoutFeedback, View } from 'react-native';
 import tw from "twrnc";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MediaTypeOptions, launchImageLibraryAsync } from 'expo-image-picker';
 
 const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode => {
+  const [image, setImage] = useState<string | null>(null);
+
   const getImageFromDevice = async () => {
     let result = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.Images
     });
 
-    console.log(result);
+    if (result.canceled) {
+      return;
+    }
+
+    setImage(result.assets[0].uri);
   }
 
   return (
@@ -22,11 +28,17 @@ const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode =
             Upload a profile picture
           </Text>
 
-          <TouchableWithoutFeedback onPress={() => { getImageFromDevice() }}>
+          {image == null && (<TouchableWithoutFeedback onPress={() => { getImageFromDevice() }}>
             <View style={[tw`mx-auto rounded-100 p-16 bg-[#F3F3F3]`]}>
               <FontAwesome5 name="user-alt" size={64} color="#A7A7A7" />
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableWithoutFeedback>)}
+
+          {image !== null && (
+            <TouchableWithoutFeedback onPress={getImageFromDevice}>
+              <Image source={{ uri: image }} width={300} height={300} style={[tw`rounded-full mx-auto w-[13rem] h-[13rem]`]} />
+            </TouchableWithoutFeedback>
+          )}
         </View>
 
         <View style={[tw`flex flex-row justify-between gap-x-4 items-center`]}>
