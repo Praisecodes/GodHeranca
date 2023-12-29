@@ -39,17 +39,23 @@ const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode =
               <Image source={{ uri: image }} width={300} height={300} style={[tw`rounded-full mx-auto w-[13rem] h-[13rem]`]} />
             </TouchableWithoutFeedback>
           )}
+
+          {image !== null && (
+            <Text style={[tw`text-base text-center`, {fontFamily: "satoshi"}]}>
+              Click on the image to select new image
+            </Text>
+          )}
         </View>
 
         <View style={[tw`flex flex-row justify-between gap-x-4 items-center`]}>
           <TouchableWithoutFeedback>
-            <Text style={[tw`text-black flex-1 text-center bg-[#E6E6E6] py-4 text-xl rounded-full`, { fontFamily: "satoshi-bold" }]}>
+            <Text style={[tw`text-black flex-1 text-center bg-[#E6E6E6] py-3 text-lg rounded-full`, { fontFamily: "satoshi-bold" }]}>
               Skip
             </Text>
           </TouchableWithoutFeedback>
 
           <TouchableWithoutFeedback>
-            <Text style={[tw`text-white flex-1 text-center bg-black py-4 text-xl rounded-full`, { fontFamily: "satoshi-bold" }]}>
+            <Text style={[tw`text-white flex-1 text-center bg-black py-3 text-lg rounded-full`, { fontFamily: "satoshi-bold" }]}>
               Continue
             </Text>
           </TouchableWithoutFeedback>
