@@ -3,7 +3,6 @@ import AccountSetupLayout from '../../layouts/account_setup_layout';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import tw from "twrnc";
 import { FontAwesome5 } from '@expo/vector-icons';
-import { ImagePickerResponse, launchImageLibrary } from 'react-native-image-picker';
 import { MediaTypeOptions, launchImageLibraryAsync } from 'expo-image-picker';
 
 const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode => {
