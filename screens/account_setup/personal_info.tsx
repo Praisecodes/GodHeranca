@@ -86,7 +86,7 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
           </View>
         </View>
 
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => { navigation.navigate("profile_picture") }}>
           <Text style={[tw`text-lg bg-black text-center rounded-full py-4 text-white`, { fontFamily: "satoshi-bold" }]}>
             CONTINUE
           </Text>
