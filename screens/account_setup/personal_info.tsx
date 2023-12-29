@@ -69,13 +69,12 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
               items={dropDownOptions}
               setItems={setDropDownOptions}
               placeholder="Account Type"
-              style={[tw`border-0 bg-[#F6F6F6] text-lg py-4`]}
-              textStyle={[tw`text-lg`]}
-              containerStyle={[tw``]}
+              style={[tw`border-0 bg-[#F6F6F6] text-lg py-4 px-4`]}
+              textStyle={[tw`text-lg`, { fontFamily: "satoshi" }]}
             />
 
             <TouchableWithoutFeedback onPress={() => { chooseBirthDate() }}>
-              <Text style={[tw`text-lg py-4 bg-[#F6F6F6] px-4 ${dateOfBirth == null ? "text-[#A5A5A5]" : "text-black"}`]}>
+              <Text style={[tw`text-lg py-4 bg-[#F6F6F6] px-4 ${dateOfBirth == null ? "text-[#A5A5A5]" : "text-black"}`, { fontFamily: "satoshi" }]}>
                 {dateOfBirth == null ? "Date of birth" : dateOfBirth}
               </Text>
             </TouchableWithoutFeedback>
