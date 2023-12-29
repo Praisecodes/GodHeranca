@@ -6,7 +6,7 @@ import OTPInputView from "@twotalltotems/react-native-otp-input";
 const Otp = ({ navigation }: { navigation: any; }): React.ReactNode => {
   return (
     <ForgotPasswordLayout title="Forgot Password" navigation={navigation}>
-      <View style={[tw`h-[100%] w-[100%] flex flex-col justify-between`]}>
+      <View style={[tw`flex-1 w-[100%] flex flex-col justify-between`]}>
         <View style={[tw`mt-10`]}>
           <Text style={[tw`text-center text-base`, {fontFamily: "satoshi-bold"}]}>
             Code Has Been Sent To Contact

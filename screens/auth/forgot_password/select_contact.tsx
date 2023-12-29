@@ -17,7 +17,7 @@ const SelectContact = ({ navigation }: { navigation: any }): React.ReactNode => 
         resetting your password
       </Text>
 
-      <View style={[tw`mt-10 flex flex-col gap-y-7 mb-16`]}>
+      <View style={[tw`mt-10 flex flex-col gap-y-7`]}>
         {DummyContacts.map((contact, index) => (
           <TouchableWithoutFeedback key={index} onPress={() => { setSelected(contact.contact) }}>
             <View style={[tw`py-4 px-5 border-2 ${selected == contact.contact ? "border-black" : "border-[#DEDEDE]"} flex flex-row items-center rounded-lg`]}>
