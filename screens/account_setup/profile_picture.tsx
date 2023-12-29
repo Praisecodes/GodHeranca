@@ -3,8 +3,18 @@ import AccountSetupLayout from '../../layouts/account_setup_layout';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import tw from "twrnc";
 import { FontAwesome5 } from '@expo/vector-icons';
+import { ImagePickerResponse, launchImageLibrary } from 'react-native-image-picker';
+import { MediaTypeOptions, launchImageLibraryAsync } from 'expo-image-picker';
 
 const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode => {
+  const getImageFromDevice = async () => {
+    let result = await launchImageLibraryAsync({
+      mediaTypes: MediaTypeOptions.Images
+    });
+
+    console.log(result);
+  }
+
   return (
     <AccountSetupLayout navigation={navigation}>
       <View style={[tw`h-[100%] flex flex-col gap-y-6 justify-between`]}>
@@ -13,7 +23,7 @@ const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode =
             Upload a profile picture
           </Text>
 
-          <TouchableWithoutFeedback onPress={() => { }}>
+          <TouchableWithoutFeedback onPress={() => { getImageFromDevice() }}>
             <View style={[tw`mx-auto rounded-100 p-16 bg-[#F3F3F3]`]}>
               <FontAwesome5 name="user-alt" size={64} color="#A7A7A7" />
             </View>
