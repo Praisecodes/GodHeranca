@@ -8,7 +8,7 @@ const Otp = ({ navigation }: { navigation: any; }): React.ReactNode => {
     <ForgotPasswordLayout title="Forgot Password" navigation={navigation}>
       <View style={[tw`flex-1 w-[100%] flex flex-col justify-between`]}>
         <View style={[tw`mt-10`]}>
-          <Text style={[tw`text-center text-base`, {fontFamily: "satoshi-bold"}]}>
+          <Text style={[tw`text-center text-base`, { fontFamily: "satoshi-bold" }]}>
             Code Has Been Sent To Contact
           </Text>
           <OTPInputView
@@ -17,13 +17,14 @@ const Otp = ({ navigation }: { navigation: any; }): React.ReactNode => {
             autoFocusOnLoad
             onCodeFilled={(code: string) => {
               console.log(code);
+              navigation.navigate("new_password");
             }}
             secureTextEntry={false}
             codeInputFieldStyle={tw`border-2 h-[90px] w-[70px] text-xl text-black`}
           />
         </View>
 
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => { navigation.navigate("new_password") }}>
           <Text style={[tw`bg-black text-white py-4 rounded-full text-xl text-center`, { fontFamily: "satoshi-bold" }]}>
             Verify
           </Text>
