@@ -10,7 +10,7 @@ const AccountSetupLayout = ({ children, navigation }: { children: React.ReactNod
         <TouchableWithoutFeedback onPress={() => { navigation.goBack() }}>
           <MaterialIcons name="keyboard-backspace" size={30} color="black" />
         </TouchableWithoutFeedback>
-        <Text style={[tw`text-xl`, { fontFamily: "satoshi-bold" }]}>
+        <Text style={[tw`text-2xl`, { fontFamily: "satoshi-bold" }]}>
           Setup Your Account
         </Text>
       </View>

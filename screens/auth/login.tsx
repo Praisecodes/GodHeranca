@@ -23,7 +23,7 @@ const Login = ({ navigation }: { navigation: any }): React.ReactNode => {
         />
       </View>
 
-      <TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={() => { navigation.navigate("account_setup", { screen: "personal_info" }) }}>
         <Text style={[tw`bg-black mb-4 text-white text-center rounded-full py-4 mx-auto w-[97%] text-xl`]}>
           LOG IN
         </Text>

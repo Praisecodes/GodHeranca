@@ -7,7 +7,7 @@ const Stack = createNativeStackNavigator();
 const AccoutSetupNavigators = (): React.ReactNode => {
   return (
     <>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false, animation: "slide_from_right" }}>
         <Stack.Screen name="personal_info" component={PersonalInfo} />
         <Stack.Screen name="profile_picture" component={ProfilePicture} />
         <Stack.Screen name="address" component={Address} />

@@ -14,7 +14,7 @@ const AuthNavigators = (): React.ReactNode => {
           <Stack.Screen name="login" component={Login} />
           <Stack.Screen name="register" component={Register} />
           <Stack.Screen name="forgot_password" component={ForgotPasswordNavigators} />
-          <Stack.Screen name="account_setup" component={AccoutSetupNavigators} />
+          <Stack.Screen options={{ animation: "fade_from_bottom" }} name="account_setup" component={AccoutSetupNavigators} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
