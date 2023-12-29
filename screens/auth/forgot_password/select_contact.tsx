@@ -44,7 +44,7 @@ const SelectContact = ({ navigation }: { navigation: any }): React.ReactNode => 
           </TouchableWithoutFeedback>
         ))}
 
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => { navigation.navigate('otp') }}>
           <Text style={[tw`bg-black text-white text-center py-4 rounded-full text-lg`, { fontFamily: "satoshi-bold" }]}>
             CONTINUE
           </Text>
