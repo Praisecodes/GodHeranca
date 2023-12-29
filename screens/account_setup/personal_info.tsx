@@ -35,7 +35,7 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
 
   return (
     <AccountSetupLayout navigation={navigation}>
-      <View style={[tw`h-[100%] flex flex-col justify-between`]}>
+      <View style={[tw`h-[100%] gap-y-6 flex flex-col justify-between`]}>
         <View>
           <Text style={[tw`text-lg`, { fontFamily: "satoshi-bold" }]}>
             Fill in your details to setup account
@@ -78,6 +78,11 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
                 {dateOfBirth == null ? "Date of birth" : dateOfBirth}
               </Text>
             </TouchableWithoutFeedback>
+
+            <SetupInput
+              placeholder="Postal Code"
+              keyboardType="number-pad"
+            />
           </View>
         </View>
 
