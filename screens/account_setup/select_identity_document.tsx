@@ -1,9 +1,11 @@
 import { View, Text, TouchableWithoutFeedback } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AccountSetupLayout from '../../layouts/account_setup_layout';
 import tw from "twrnc";
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 const SelectIdentityDocument = ({ navigation }: { navigation: any; }): React.ReactNode => {
+  const initialBoarder = useSharedValue<number>(0);
   const [selected, setSelected] = useState<string>("");
   const [documentTypes, setDocumentTypes] = useState<any[]>([
     {
@@ -34,8 +36,20 @@ const SelectIdentityDocument = ({ navigation }: { navigation: any; }): React.Rea
 
           <View style={[tw`flex flex-col gap-y-8`]}>
             {documentTypes.map((documentType, index) => (
-              <TouchableWithoutFeedback key={index} onPress={() => { setSelected(documentType.name) }}>
-                <View style={[tw`flex flex-row ${documentType.name == selected && "border-2 border-black"} items-center rounded-lg py-1 px-4 bg-[#F1F1F1]`]}>
+              <TouchableWithoutFeedback
+                key={index}
+                onPress={() => {
+                  setSelected(documentType.name);
+                }}
+              >
+                <Animated.View style={[
+                  tw`flex flex-row items-center rounded-lg py-1 px-4 bg-[#F1F1F1]`,
+                  {
+                    borderWidth: documentType.name == selected ? 2 : 0,
+                    borderColor: "black",
+                  }
+                ]}
+                >
                   <Text style={[tw`flex-1 text-black text-lg py-4`, { fontFamily: "satoshi-bold" }]}>
                     {documentType.title}
                   </Text>
@@ -43,7 +57,7 @@ const SelectIdentityDocument = ({ navigation }: { navigation: any; }): React.Rea
                   <View style={[tw`w-[1.7rem] p-[1.9px] h-[1.7rem] border-2 rounded-full`]}>
                     {documentType.name == selected && (<View style={[tw`bg-black rounded-full w-[100%] h-[100%]`]} />)}
                   </View>
-                </View>
+                </Animated.View>
               </TouchableWithoutFeedback>
             ))}
           </View>
