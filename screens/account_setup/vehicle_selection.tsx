@@ -41,8 +41,8 @@ const VehicleSelection = ({ navigation }: { navigation: any }): React.ReactNode 
           <View style={[tw`flex flex-row flex-wrap gap-y-5 justify-between items-center`]}>
             {vehicles.map((vehicle, index) => (
               <TouchableWithoutFeedback key={index} onPress={() => { setSelected(vehicle.name) }}>
-                <View>
-                  <View style={[tw`w-[10rem] h-[9rem] ${(vehicle.name === selected) && "border-[2.4px] border-black"} flex items-center justify-center bg-white rounded-lg`, { elevation: 9 }]}>
+                <View style={[tw`w-[45%]`]}>
+                  <View style={[tw`w-[100%] h-[9rem] ${(vehicle.name === selected) && "border-[2.4px] border-black"} flex items-center justify-center bg-white rounded-lg`, { elevation: 9 }]}>
                     <Image source={vehicle.image} />
                   </View>
                   <Text style={[tw`text-base py-1 text-center`, { fontFamily: "satoshi-bold" }]}>
@@ -58,7 +58,7 @@ const VehicleSelection = ({ navigation }: { navigation: any }): React.ReactNode 
           </Text>
         </View>
 
-        <TouchableWithoutFeedback onPress={() => { navigation.navigate("drivers_license") }}>
+        <TouchableWithoutFeedback onPress={() => { if (selected == "bicycle") { return; }; navigation.navigate("drivers_license") }}>
           <Text style={[tw`bg-black text-white text-center py-4 rounded-full text-lg`, { fontFamily: "satoshi-bold" }]}>
             CONTINUE
           </Text>
