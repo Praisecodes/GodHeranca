@@ -11,6 +11,7 @@ interface IPasswordResetModal {
 const PasswordResetModal = ({ onClose, open }: IPasswordResetModal) => {
   const image = require("../../../assets/images/password_reset.png");
   const initialScale = useSharedValue<number>(0.3);
+  const initialDisplay = useSharedValue<any>("none");
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
@@ -18,19 +19,24 @@ const PasswordResetModal = ({ onClose, open }: IPasswordResetModal) => {
     ]
   }), []);
 
+  const displayStyle = useAnimatedStyle(() => ({
+    display: initialDisplay.value
+  }), []);
+
   useEffect(() => {
     if (!open) {
-      initialScale.value = withSpring(0.3);
+      initialScale.value = withTiming(0.3, { duration: 200 });
+      setTimeout(() => { initialDisplay.value = "none" }, 100);
       return;
     }
 
     initialScale.value = withTiming(1, { duration: 200 });
-    // console.log("stuff");
+    initialDisplay.value = "flex";
   }, [open])
 
   return (
     <TouchableWithoutFeedback onPress={() => { onClose(); }}>
-      <View style={[tw`h-[100%] absolute px-5 z-10 ${open ? "flex" : "hidden"} items-center justify-center w-[100%] bg-[#00000042]`]}>
+      <Animated.View style={[tw`h-[100%] absolute px-5 z-10 items-center justify-center w-[100%] bg-[#00000042]`, displayStyle]}>
         <Animated.View style={[tw`bg-white py-8 px-5 flex flex-col gap-y-8 w-[100%] rounded-lg`, animatedStyle]}>
           <Image source={image} style={[tw`mx-auto`]} />
 
@@ -44,7 +50,7 @@ const PasswordResetModal = ({ onClose, open }: IPasswordResetModal) => {
             login page in few seconds.
           </Text>
         </Animated.View>
-      </View>
+      </Animated.View>
     </TouchableWithoutFeedback>
   )
 }
