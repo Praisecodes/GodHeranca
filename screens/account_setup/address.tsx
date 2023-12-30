@@ -47,7 +47,7 @@ const Address = ({ navigation }: { navigation: any; }): React.ReactNode => {
           </View>
         </View>
 
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => { navigation.navigate('guarantor') }}>
           <Text style={[tw`bg-black text-white text-center py-4 rounded-full text-lg`, { fontFamily: "satoshi-bold" }]}>
             CONTINUE
           </Text>
