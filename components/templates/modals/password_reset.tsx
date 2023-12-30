@@ -10,7 +10,7 @@ interface IPasswordResetModal {
 
 const PasswordResetModal = ({ onClose, open }: IPasswordResetModal) => {
   const image = require("../../../assets/images/password_reset.png");
-  const initialScale = useSharedValue<number>(0.5);
+  const initialScale = useSharedValue<number>(0.3);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
@@ -20,12 +20,12 @@ const PasswordResetModal = ({ onClose, open }: IPasswordResetModal) => {
 
   useEffect(() => {
     if (!open) {
-      initialScale.value = withSpring(0.8);
+      initialScale.value = withSpring(0.3);
       return;
     }
 
-    initialScale.value = withRepeat(withSpring(1), -1, true);
-    console.log("stuff");
+    initialScale.value = withTiming(1, { duration: 200 });
+    // console.log("stuff");
   }, [open])
 
   return (
