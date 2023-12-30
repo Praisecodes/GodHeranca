@@ -3,12 +3,14 @@ import React, { useEffect } from 'react';
 import tw from "twrnc";
 import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withSpring, withTiming } from 'react-native-reanimated';
 
-interface IPasswordResetModal {
+interface ISuccessModal {
   onClose: () => any;
   open: boolean;
+  title: string;
+  text: string;
 }
 
-const PasswordResetModal = ({ onClose, open }: IPasswordResetModal) => {
+const SuccessModal = ({ onClose, open, title, text }: ISuccessModal) => {
   const image = require("../../../assets/images/password_reset.png");
   const initialScale = useSharedValue<number>(0.3);
   const initialDisplay = useSharedValue<any>("none");
@@ -41,13 +43,11 @@ const PasswordResetModal = ({ onClose, open }: IPasswordResetModal) => {
           <Image source={image} style={[tw`mx-auto`]} />
 
           <Text style={[tw`text-2xl text-center`, { fontFamily: "satoshi-bold" }]}>
-            Congratulations!
+            {title}
           </Text>
 
           <Text style={[tw`text-lg text-center`, { fontFamily: "satoshi" }]}>
-            Your password was successfully
-            changed . you will be redirected to your
-            login page in few seconds.
+            {text}
           </Text>
         </Animated.View>
       </Animated.View>
@@ -55,4 +55,4 @@ const PasswordResetModal = ({ onClose, open }: IPasswordResetModal) => {
   )
 }
 
-export default PasswordResetModal;
+export default SuccessModal;
