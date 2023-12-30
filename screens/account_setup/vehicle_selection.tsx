@@ -58,7 +58,7 @@ const VehicleSelection = ({ navigation }: { navigation: any }): React.ReactNode 
           </Text>
         </View>
 
-        <TouchableWithoutFeedback onPress={() => { if (selected == "bicycle") { return; }; navigation.navigate("drivers_license") }}>
+        <TouchableWithoutFeedback onPress={() => { if (selected == "bicycle") { navigation.navigate("select_identity_document"); return; }; navigation.navigate("drivers_license") }}>
           <Text style={[tw`bg-black text-white text-center py-4 rounded-full text-lg`, { fontFamily: "satoshi-bold" }]}>
             CONTINUE
           </Text>
