@@ -23,7 +23,7 @@ const Register = ({ navigation }: { navigation: any }): React.ReactNode => {
       </View>
 
       <TouchableWithoutFeedback>
-        <Text style={[tw`bg-black mb-4 text-white text-center rounded-full py-4 mx-auto w-[97%] text-xl`]}>
+        <Text style={[tw`bg-black mb-4 text-white text-center rounded-full py-4 mx-auto w-[97%] text-xl`, {fontFamily: "satoshi-bold"}]}>
           SIGN UP
         </Text>
       </TouchableWithoutFeedback>
