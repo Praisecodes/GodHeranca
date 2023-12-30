@@ -42,6 +42,7 @@ const Address = ({ navigation }: { navigation: any; }): React.ReactNode => {
             </Text>
             <SetupInput
               placeholder='000000'
+              keyboardType="number-pad"
             />
           </View>
         </View>
