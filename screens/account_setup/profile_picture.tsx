@@ -60,7 +60,7 @@ const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode =
           </View>
 
           <View style={[tw`flex flex-row justify-between gap-x-4 items-center`]}>
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={() => { navigation.navigate('address') }}>
               <Text style={[tw`text-black flex-1 text-center bg-[#E6E6E6] py-3 text-lg rounded-full`, { fontFamily: "satoshi-bold" }]}>
                 Skip
               </Text>

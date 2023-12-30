@@ -16,7 +16,7 @@ const SetupInput = ({ placeholder, value, onTextChange, keyboardType }: ISetupIn
       value={value}
       keyboardType={keyboardType}
       onChangeText={onTextChange}
-      style={[tw`w-[100%] bg-[#F6F6F6] py-4 px-4 text-lg`, { fontFamily: "satoshi" }]}
+      style={[tw`w-[100%] bg-[#F6F6F6] rounded-md py-4 px-5 text-lg`, { fontFamily: "satoshi" }]}
     />
   )
 }
