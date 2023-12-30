@@ -35,6 +35,15 @@ const Address = ({ navigation }: { navigation: any; }): React.ReactNode => {
               placeholder='Stret Address'
             />
           </View>
+
+          <View style={[tw`flex flex-col gap-y-2`]}>
+            <Text style={[tw`text-xl px-1`, { fontFamily: "satoshi-bold" }]}>
+              Postal Code
+            </Text>
+            <SetupInput
+              placeholder='000000'
+            />
+          </View>
         </View>
 
         <TouchableWithoutFeedback>

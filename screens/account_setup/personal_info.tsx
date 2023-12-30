@@ -78,11 +78,6 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
                 {dateOfBirth == null ? "Date of birth" : dateOfBirth}
               </Text>
             </TouchableWithoutFeedback>
-
-            <SetupInput
-              placeholder="Postal Code"
-              keyboardType="number-pad"
-            />
           </View>
         </View>
 
