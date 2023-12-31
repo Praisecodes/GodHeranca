@@ -2,7 +2,7 @@ import { View, Text, TextInput, TouchableWithoutFeedback } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import tw from 'twrnc';
 import { Ionicons } from '@expo/vector-icons';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 
 interface IAuthInput {
   icon: any;
@@ -17,21 +17,27 @@ interface IAuthInput {
 const AuthInput = ({ icon, placeholder, secureTextEntry, value, onChangeText, validation_message, valid }: IAuthInput) => {
   const [passwordVisible, setPasswordVisible] = useState<boolean>(secureTextEntry);
 
-  const initialDisplay = useSharedValue<"none" | "flex" | undefined | number>("none");
+  const initialDisplay = useSharedValue<any>("none");
 
   const onPasswordToggle = () => {
     setPasswordVisible(!passwordVisible);
   }
 
-  useEffect(() => {
-    console.log(valid);
-    if (!valid) {
-      initialDisplay.value = withTiming("flex", { duration: 200 });
-      return;
-    }
+  const displayStyle = useAnimatedStyle(() => ({
+    display: initialDisplay.value,
+  }), []);
 
-    initialDisplay.value = withTiming("none", { duration: 100 });
-  }, [valid]);
+  // useEffect(() => {
+  //   console.log(valid);
+  //   console.log(initialDisplay.value);
+  //   if (!valid) {
+  //     initialDisplay.value = withTiming("flex", { duration: 0 });
+  //     // initialDisplay.value = withSpring("flex");
+  //     return;
+  //   }
+
+  //   initialDisplay.value = withTiming("none", { duration: 0 });
+  // }, [valid]);
 
   return (
     <>
@@ -55,10 +61,8 @@ const AuthInput = ({ icon, placeholder, secureTextEntry, value, onChangeText, va
 
       <Animated.Text style={[
         tw`text-xs mt-[-10px] text-[#ff0000]`,
-        { fontFamily: "satoshi" },
-        useAnimatedStyle(() => ({
-          display: initialDisplay.value
-        }), []),
+        { fontFamily: "satoshi", display: valid ? "none" : "flex" },
+        // displayStyle,
       ]}>
         {validation_message}
       </Animated.Text>
