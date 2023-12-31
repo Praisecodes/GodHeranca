@@ -21,7 +21,7 @@ const Register = ({ navigation }: { navigation: any }): React.ReactNode => {
           value={username}
           onChangeText={(text: string) => { setUsername(text) }}
           validation_message="Username Should Not Contain Any Whitespaces"
-          valid={true}
+          valid={username_regex.test(username)}
         />
 
         <AuthInput
@@ -30,13 +30,19 @@ const Register = ({ navigation }: { navigation: any }): React.ReactNode => {
           secureTextEntry={true}
           value={password}
           onChangeText={(text: string) => { setPassword(text) }}
-          valid={true}
+          valid={password_regex.test(password)}
           validation_message="Password must be a minimum of 6 characters, contain at least 1 digit, 1 uppercase and lowercase letter"
         />
       </View>
 
-      <TouchableWithoutFeedback>
-        <Text style={[tw`bg-black mb-4 text-white text-center rounded-full py-4 mx-auto w-[97%] text-xl`, { fontFamily: "satoshi-bold" }]}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          if (!username_regex.test(username) || !password_regex.test(password)) {
+            return;
+          }
+        }}
+      >
+        <Text style={[tw`bg-black mb-4 text-white text-center rounded-full py-4 mx-auto w-[97%] text-xl`, { fontFamily: "satoshi-bold", opacity: ((!username_regex.test(username) || !password_regex.test(password)) ? 0.7 : 1) }]}>
           SIGN UP
         </Text>
       </TouchableWithoutFeedback>

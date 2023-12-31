@@ -36,8 +36,16 @@ const Login = ({ navigation }: { navigation: any }): React.ReactNode => {
         />
       </View>
 
-      <TouchableWithoutFeedback onPress={() => { navigation.navigate("account_setup", { screen: "personal_info" }) }}>
-        <Text style={[tw`bg-black mb-4 text-white text-center rounded-full py-4 mx-auto w-[97%] text-xl`, { fontFamily: "satoshi-bold" }]}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          if (!username_regex.test(username) || !password_regex.test(password)) {
+            return;
+          }
+
+          navigation.navigate("account_setup", { screen: "personal_info" });
+        }}
+      >
+        <Text style={[tw`bg-black mb-4 text-white text-center rounded-full py-4 mx-auto w-[97%] text-xl`, { fontFamily: "satoshi-bold", opacity: ((!username_regex.test(username) || !password_regex.test(password)) ? 0.7 : 1) }]}>
           LOG IN
         </Text>
       </TouchableWithoutFeedback>
