@@ -3,7 +3,7 @@ import { ForgotPasswordLayout } from "../../../layouts";
 import tw from "twrnc";
 import { AuthInput } from "../../../components/atoms";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { PasswordResetModal } from "../../../components/templates/modals";
+import { SuccessModal } from "../../../components/templates/modals";
 import { useState } from "react";
 
 const NewPassword = ({ navigation }: { navigation: any; }): React.ReactNode => {
@@ -14,7 +14,12 @@ const NewPassword = ({ navigation }: { navigation: any; }): React.ReactNode => {
 
   return (
     <>
-      <PasswordResetModal onClose={() => { toggleModalOpen() }} open={modalOpen} />
+      <SuccessModal
+        onClose={() => { toggleModalOpen() }}
+        open={modalOpen}
+        title="Congratulations!"
+        text="Your password was successfully changed. you will be redirected to your login page in few seconds."
+      />
 
       <ForgotPasswordLayout title="Create New Password" navigation={navigation}>
         <View style={[tw`w-[100%] h-[100%] flex flex-col py-3 justify-between`]}>

@@ -1,5 +1,5 @@
-import PasswordResetModal from "./password_reset";
+import SuccessModal from "./success_modal";
 
 export {
-  PasswordResetModal,
+  SuccessModal,
 };
