@@ -3,7 +3,7 @@ import { create } from "zustand";
 interface IAccountSetupDetails {
   fullName: string;
   email: string;
-  cpf: number;
+  cpf: string;
   phoneNumber: string;
   accountType: "rider" | "buyer";
   dateOfBirth: string;
@@ -11,7 +11,7 @@ interface IAccountSetupDetails {
   state: string;
   city: string;
   address: string;
-  postalCode: number;
+  postalCode: string;
   guarantorName?: string;
   guarantorPhoneNumber?: string;
   guarantorRelationship?: string;
@@ -31,7 +31,7 @@ export const useAccountSetupState = create<IAccountSetupState>()((set) => ({
   setup_info: {
     fullName: "",
     email: "",
-    cpf: 0,
+    cpf: "",
     phoneNumber: "",
     accountType: "buyer",
     dateOfBirth: "",
@@ -39,7 +39,7 @@ export const useAccountSetupState = create<IAccountSetupState>()((set) => ({
     state: "",
     city: "",
     address: "",
-    postalCode: 0,
+    postalCode: "",
     guarantorName: "",
     guarantorPhoneNumber: "",
     guarantorRelationship: "",

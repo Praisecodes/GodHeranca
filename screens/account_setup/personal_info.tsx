@@ -8,16 +8,17 @@ import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import { useAccountSetupState } from "../../zustand/AccountSetupStore";
 
 const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => {
-  const [typeValue, setTypeValue] = useState<any>(null);
   const [dropDownOpen, setDropDownOpen] = useState<boolean>(false);
   const [dropDownOptions, setDropDownOptions] = useState<any[]>([
     { label: "Rider", value: "rider" },
     { label: "Buyer", value: "buyer" }
   ]);
-  const [dateOfBirth, setDateOfBirth] = useState<string | null>(null);
+  const [dateOfBirth, setDateOfBirth] = useState<string | null>("");
 
   const setup_info = useAccountSetupState((state) => state.setup_info);
   const updateSetupInfo = useAccountSetupState((state) => state.updateSetupInfo);
+
+  const [typeValue, setTypeValue] = useState<any>(setup_info.accountType);
 
   const chooseBirthDate = () => {
     DateTimePickerAndroid.open({
@@ -31,15 +32,26 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
         }
 
         // console.log(selectedDate);
+        updateSetupInfo({
+          ...setup_info,
+          dateOfBirth: new Date(`${selectedDate}`).toISOString().split('T')[0]
+        });
         setDateOfBirth(new Date(`${selectedDate}`).toISOString().split('T')[0]);
       }),
-      onTouchCancel: (() => { setDateOfBirth(null) })
+      onTouchCancel: (() => { setDateOfBirth("") })
     })
   }
 
-  // useEffect(() => {
-  //   console.log(setup_info);
-  // }, [setup_info]);
+  useEffect(() => {
+    console.log(setup_info);
+  }, [setup_info]);
+
+  useEffect(() => {
+    updateSetupInfo({
+      ...setup_info,
+      accountType: typeValue
+    });
+  }, [typeValue]);
 
   return (
     <AccountSetupLayout navigation={navigation}>
@@ -76,11 +88,25 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
             <SetupInput
               placeholder="CPF"
               keyboardType="number-pad"
+              value={setup_info.cpf.toString()}
+              onTextChange={(text: string) => {
+                updateSetupInfo({
+                  ...setup_info,
+                  cpf: text
+                })
+              }}
             />
 
             <SetupInput
               placeholder="Phone Number"
               keyboardType="phone-pad"
+              value={setup_info.phoneNumber}
+              onTextChange={(text: string) => {
+                updateSetupInfo({
+                  ...setup_info,
+                  phoneNumber: text
+                })
+              }}
             />
 
             <DropDownPicker
@@ -96,8 +122,8 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
             />
 
             <TouchableWithoutFeedback onPress={() => { chooseBirthDate() }}>
-              <Text style={[tw`text-lg py-4 bg-[#F6F6F6] px-4 ${dateOfBirth == null ? "text-[#A5A5A5]" : "text-black"}`, { fontFamily: "satoshi" }]}>
-                {dateOfBirth == null ? "Date of birth" : dateOfBirth}
+              <Text style={[tw`text-lg py-4 bg-[#F6F6F6] px-4 ${setup_info.dateOfBirth == "" ? "text-[#A5A5A5]" : "text-black"}`, { fontFamily: "satoshi" }]}>
+                {setup_info.dateOfBirth == "" ? "Date of birth" : setup_info.dateOfBirth}
               </Text>
             </TouchableWithoutFeedback>
           </View>
