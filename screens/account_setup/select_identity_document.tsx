@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react'
 import AccountSetupLayout from '../../layouts/account_setup_layout';
 import tw from "twrnc";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { useDocumentSelectedState } from '../../zustand/AppStore';
 
 const SelectIdentityDocument = ({ navigation }: { navigation: any; }): React.ReactNode => {
   const initialBoarder = useSharedValue<number>(0);
   const initialScale = useSharedValue<number>(0);
-  const [selected, setSelected] = useState<string>("");
-  const [documentTypes, setDocumentTypes] = useState<any[]>([
+  const selected = useDocumentSelectedState((state) => state.selected);
+  const setSelected = useDocumentSelectedState((state) => state.setSelected);
+  const [documentTypes] = useState<any[]>([
     {
       "name": "id_card",
       "title": "ID Card",
@@ -77,7 +79,7 @@ const SelectIdentityDocument = ({ navigation }: { navigation: any; }): React.Rea
           </View>
         </View>
 
-        <TouchableWithoutFeedback onPress={() => { navigation.navigate("drivers_license") }}>
+        <TouchableWithoutFeedback onPress={() => { navigation.navigate("identity_document") }}>
           <Text style={[tw`bg-black text-white text-center py-4 rounded-full text-lg`, { fontFamily: "satoshi-bold" }]}>
             CONTINUE
           </Text>

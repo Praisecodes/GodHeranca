@@ -10,6 +10,11 @@ interface ILoggedInState {
   setLoggedIn: (value: boolean) => void,
 }
 
+interface IDocumentSelectedState {
+  selected: string,
+  setSelected: (value: string) => void,
+}
+
 interface IAccoutSetupState {
   accountSetup: boolean,
   setAccountSetup: (value: boolean) => void,
@@ -29,3 +34,8 @@ export const useAccountSetupState = create<IAccoutSetupState>()((set) => ({
   accountSetup: false,
   setAccountSetup: (value: boolean) => set(() => ({ accountSetup: value })),
 }));
+
+export const useDocumentSelectedState = create<IDocumentSelectedState>()((set) => ({
+  selected: "",
+  setSelected: (value: string) => set(() => ({ selected: value })),
+}))
