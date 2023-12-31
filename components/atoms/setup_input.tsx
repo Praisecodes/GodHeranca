@@ -6,7 +6,7 @@ interface ISetupInput {
   placeholder: string;
   value?: string;
   keyboardType?: KeyboardTypeOptions;
-  onTextChange?: any;
+  onTextChange?: ((text: string) => any | undefined);
 }
 
 const SetupInput = ({ placeholder, value, onTextChange, keyboardType }: ISetupInput) => {

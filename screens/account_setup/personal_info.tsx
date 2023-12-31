@@ -3,8 +3,9 @@ import AccountSetupLayout from "../../layouts/account_setup_layout";
 import tw from "twrnc";
 import { SetupInput } from "../../components/atoms";
 import DropDownPicker from "react-native-dropdown-picker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import { useAccountSetupState } from "../../zustand/AccountSetupStore";
 
 const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => {
   const [typeValue, setTypeValue] = useState<any>(null);
@@ -14,6 +15,9 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
     { label: "Buyer", value: "buyer" }
   ]);
   const [dateOfBirth, setDateOfBirth] = useState<string | null>(null);
+
+  const setup_info = useAccountSetupState((state) => state.setup_info);
+  const updateSetupInfo = useAccountSetupState((state) => state.updateSetupInfo);
 
   const chooseBirthDate = () => {
     DateTimePickerAndroid.open({
@@ -33,6 +37,10 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
     })
   }
 
+  // useEffect(() => {
+  //   console.log(setup_info);
+  // }, [setup_info]);
+
   return (
     <AccountSetupLayout navigation={navigation}>
       <View style={[tw`h-[100%] gap-y-6 flex flex-col justify-between`]}>
@@ -44,11 +52,25 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
           <View style={[tw`mt-9 flex flex-col gap-y-7`]}>
             <SetupInput
               placeholder="Full Name"
+              value={setup_info.fullName}
+              onTextChange={(text: string) => {
+                updateSetupInfo({
+                  ...setup_info,
+                  fullName: text
+                })
+              }}
             />
 
             <SetupInput
               placeholder="Email"
               keyboardType="email-address"
+              value={setup_info.email}
+              onTextChange={(text: string) => {
+                updateSetupInfo({
+                  ...setup_info,
+                  email: text
+                })
+              }}
             />
 
             <SetupInput
