@@ -17,27 +17,24 @@ interface IAuthInput {
 const AuthInput = ({ icon, placeholder, secureTextEntry, value, onChangeText, validation_message, valid }: IAuthInput) => {
   const [passwordVisible, setPasswordVisible] = useState<boolean>(secureTextEntry);
 
-  const initialDisplay = useSharedValue<any>("none");
+  const initialDisplay = useSharedValue<number>(0);
 
   const onPasswordToggle = () => {
     setPasswordVisible(!passwordVisible);
   }
 
   const displayStyle = useAnimatedStyle(() => ({
-    display: initialDisplay.value,
-  }), []);
+    opacity: initialDisplay.value,
+  }), [valid]);
 
-  // useEffect(() => {
-  //   console.log(valid);
-  //   console.log(initialDisplay.value);
-  //   if (!valid) {
-  //     initialDisplay.value = withTiming("flex", { duration: 0 });
-  //     // initialDisplay.value = withSpring("flex");
-  //     return;
-  //   }
+  useEffect(() => {
+    if (!valid) {
+      initialDisplay.value = withTiming(1, { duration: 100 });
+      return;
+    }
 
-  //   initialDisplay.value = withTiming("none", { duration: 0 });
-  // }, [valid]);
+    initialDisplay.value = withTiming(0, { duration: 30 });
+  }, [valid]);
 
   return (
     <>
@@ -60,9 +57,9 @@ const AuthInput = ({ icon, placeholder, secureTextEntry, value, onChangeText, va
       </View>
 
       <Animated.Text style={[
-        tw`text-xs mt-[-10px] text-[#ff0000]`,
-        { fontFamily: "satoshi", display: valid ? "none" : "flex" },
-        // displayStyle,
+        tw`text-xs mt-[-16px] text-[#ff0000]`,
+        { fontFamily: "satoshi" },
+        displayStyle,
       ]}>
         {validation_message}
       </Animated.Text>
