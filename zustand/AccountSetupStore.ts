@@ -20,6 +20,8 @@ interface IAccountSetupDetails {
   documentUrl?: string;
   driversLicenseFront?: string;
   driversLicenseBack?: string;
+  idCardFront?: string;
+  idCardBack?: string;
 }
 
 interface IAccountSetupState {
@@ -47,7 +49,9 @@ export const useAccountSetupState = create<IAccountSetupState>()((set) => ({
     documentType: "",
     documentUrl: "",
     driversLicenseBack: "",
-    driversLicenseFront: ""
+    driversLicenseFront: "",
+    idCardBack: "",
+    idCardFront: "",
   },
   updateSetupInfo: (setupInfo: IAccountSetupDetails) => set((existingState) => ({
     setup_info: { ...setupInfo }
