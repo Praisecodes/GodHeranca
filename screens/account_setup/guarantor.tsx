@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AccountSetupLayout from '../../layouts/account_setup_layout';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import tw from "twrnc";
 import { SetupInput } from '../../components/atoms';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { useAccountSetupState } from '../../zustand/AccountSetupStore';
+import { fullname_regex, phone_number_regex } from '../../utils/regex_contants';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 const Guarantor = ({ navigation }: { navigation: any }): React.ReactNode => {
   const [dropDownOpen, setDropDownOpen] = useState<boolean>(false);
-  const [relationship, setRelationship] = useState<any>(null);
+  const [relationship, setRelationship] = useState<any>("");
   const [options, setOptions] = useState<any[]>([
     { label: "Father", value: "father" },
     { label: "Mother", value: "mother" },
@@ -16,6 +19,32 @@ const Guarantor = ({ navigation }: { navigation: any }): React.ReactNode => {
     { label: "Friend", value: "friend" },
     { label: "Collegue", value: "collegue" },
   ]);
+
+  const initialOpacity = useSharedValue(0.7);
+
+  const opacityStyle = useAnimatedStyle(() => ({
+    opacity: initialOpacity.value,
+  }), []);
+
+  const setupInfo = useAccountSetupState((state) => state.setup_info);
+  const updateSetupInfo = useAccountSetupState((state) => state.updateSetupInfo);
+
+  useEffect(() => {
+    updateSetupInfo({
+      ...setupInfo,
+      guarantorRelationship: relationship
+    });
+  }, [relationship]);
+
+  useEffect(() => {
+    if (!fullname_regex.test(setupInfo.guarantorName) || !phone_number_regex.test(setupInfo.guarantorPhoneNumber) || setupInfo.guarantorRelationship == "") {
+      initialOpacity.value = withTiming(0.7, { duration: 100 });
+      return;
+    }
+
+    initialOpacity.value = withTiming(1, { duration: 100 });
+  }, [setupInfo]);
+
   return (
     <AccountSetupLayout navigation={navigation}>
       <View style={[tw`flex flex-col gap-y-6 justify-between h-[100%]`]}>
@@ -26,6 +55,15 @@ const Guarantor = ({ navigation }: { navigation: any }): React.ReactNode => {
             </Text>
             <SetupInput
               placeholder='Guarantor Name'
+              value={setupInfo.guarantorName}
+              onTextChange={(text) => {
+                updateSetupInfo({
+                  ...setupInfo,
+                  guarantorName: text
+                })
+              }}
+              validation_message='Enter A Valid Name'
+              valid={fullname_regex.test(setupInfo.guarantorName)}
             />
           </View>
 
@@ -35,6 +73,16 @@ const Guarantor = ({ navigation }: { navigation: any }): React.ReactNode => {
             </Text>
             <SetupInput
               placeholder='Guarantor Phone Number'
+              value={setupInfo.guarantorPhoneNumber}
+              keyboardType="phone-pad"
+              onTextChange={(text) => {
+                updateSetupInfo({
+                  ...setupInfo,
+                  guarantorPhoneNumber: text
+                })
+              }}
+              validation_message='Enter A Valid Phone Number'
+              valid={phone_number_regex.test(setupInfo.guarantorPhoneNumber)}
             />
           </View>
 
@@ -57,9 +105,9 @@ const Guarantor = ({ navigation }: { navigation: any }): React.ReactNode => {
         </View>
 
         <TouchableWithoutFeedback onPress={() => { navigation.navigate("vehicle_selection") }}>
-          <Text style={[tw`bg-black text-white text-center py-4 rounded-full text-lg`, { fontFamily: "satoshi-bold" }]}>
+          <Animated.Text style={[tw`bg-black text-white text-center py-4 rounded-full text-lg`, { fontFamily: "satoshi-bold" }, opacityStyle]}>
             CONTINUE
-          </Text>
+          </Animated.Text>
         </TouchableWithoutFeedback>
 
       </View>
