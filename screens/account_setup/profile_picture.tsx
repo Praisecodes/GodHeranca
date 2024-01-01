@@ -14,21 +14,34 @@ const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode =
   const updateSetupInfo = useAccountSetupState((state) => state.updateSetupInfo);
 
   const initialWidth = useSharedValue<DimensionValue | SharedValue<AnimatableValue> | undefined>("48%");
+  const initialDirection = useSharedValue<"row" | "column" | "column-reverse" | "row-reverse" | undefined>("row");
 
   useEffect(() => {
     if (setup_info.profilePicture == "") {
       initialWidth.value = withTiming("48%", { duration: 40 });
-      // selectInitialWidth.value = withTiming("48%", { duration: 40 });
+      initialDirection.value = withTiming("row", { duration: 40 });
       return;
     }
 
     initialWidth.value = withTiming("100%", { duration: 300 });
-    // selectInitialWidth.value = withTiming("100%", { duration: 300 });
+    initialDirection.value = withTiming("column-reverse", { duration: 200 });
   }, []);
 
   const selectAnimatedStyle = useAnimatedStyle(() => ({
     width: initialWidth.value,
     overflow: "hidden",
+  }), []);
+
+  const containerAnimatedStyle = useAnimatedStyle(() => ({
+    display: "flex",
+    flexDirection: initialDirection.value,
+    width: "100%",
+    flexWrap: "wrap-reverse",
+    alignItems: "center",
+    justifyContent: "space-between",
+    rowGap: 4,
+    columnGap: 6,
+    backgroundColor: "#0000ff33"
   }), []);
 
   const skipAnimatedStyle = useAnimatedStyle(() => ({
@@ -51,8 +64,9 @@ const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode =
       ...setup_info,
       profilePicture: result.assets[0].uri
     });
-    // skipInitialWidth.value = withTiming("0%", { duration: 300 });
+
     initialWidth.value = withTiming("100%", { duration: 300 });
+    initialDirection.value = withTiming("column-reverse", { duration: 200 });
   }
 
   return (
@@ -88,10 +102,10 @@ const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode =
             )}
           </View>
 
-          <Animated.View style={[tw`flex w-[100%] flex-row ${setup_info.profilePicture == "" ? "justify-between gap-x-4" : "justify-center"} items-center`,]}>
+          <Animated.View style={[containerAnimatedStyle]}>
             <TouchableWithoutFeedback onPress={() => { navigation.navigate('address') }}>
               <Animated.Text numberOfLines={1} style={[tw`text-black text-center bg-[#E6E6E6] py-3 text-lg rounded-full`, { fontFamily: "satoshi-bold" }, skipAnimatedStyle]}>
-                Skip
+                {setup_info.profilePicture == "" ? "Skip" : "Save And Continue"}
               </Animated.Text>
             </TouchableWithoutFeedback>
 
