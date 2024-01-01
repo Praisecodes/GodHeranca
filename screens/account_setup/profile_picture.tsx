@@ -13,42 +13,44 @@ const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode =
   const setup_info = useAccountSetupState((state) => state.setup_info);
   const updateSetupInfo = useAccountSetupState((state) => state.updateSetupInfo);
 
-  const saveInitialHeight = useSharedValue<DimensionValue | SharedValue<AnimatableValue> | undefined>("0%");
-  const saveInitialPadding = useSharedValue(0);
-  const selectInitialWidth = useSharedValue<DimensionValue | SharedValue<AnimatableValue> | undefined>("48%");
-  const skipInitialWidth = useSharedValue<DimensionValue | SharedValue<AnimatableValue> | undefined>("48%");
+  const initialWidth = useSharedValue<DimensionValue | SharedValue<AnimatableValue> | undefined>("48%");
+  const initialDirection = useSharedValue<"row" | "column" | "column-reverse" | "row-reverse" | undefined>("row");
 
   useEffect(() => {
     if (setup_info.profilePicture == "") {
-      // console.log(saveInitialHeight.value);
-      saveInitialHeight.value = withTiming("0.1%", { duration: 40 });
-      skipInitialWidth.value = withTiming("48%", { duration: 40 });
-      selectInitialWidth.value = withTiming("48%", { duration: 40 });
-      // saveInitialPadding.value = withTiming(0, { duration: 40 });
+      initialWidth.value = withTiming("48%", { duration: 40 });
+      initialDirection.value = withTiming("row", { duration: 40 });
       return;
     }
 
-    saveInitialHeight.value = withTiming("21.3%", { duration: 300 });
-    skipInitialWidth.value = withTiming("0%", { duration: 300 });
-    selectInitialWidth.value = withTiming("100%", { duration: 300 });
-    saveInitialPadding.value = withTiming(12, { duration: 300 });
+    initialWidth.value = withTiming("100%", { duration: 300 });
+    initialDirection.value = withTiming("column-reverse", { duration: 200 });
   }, []);
 
   const selectAnimatedStyle = useAnimatedStyle(() => ({
-    width: selectInitialWidth.value,
+    width: initialWidth.value,
     overflow: "hidden",
+    color: setup_info.profilePicture == "" ? "white" : "black",
+    backgroundColor: setup_info.profilePicture == "" ? "black" : "#E6E6E6"
+  }), [setup_info.profilePicture]);
+
+  const containerAnimatedStyle = useAnimatedStyle(() => ({
+    display: "flex",
+    flexDirection: initialDirection.value,
+    width: "100%",
+    flexWrap: "wrap-reverse",
+    alignItems: "center",
+    justifyContent: "space-between",
+    rowGap: 4,
+    columnGap: 6,
   }), []);
 
   const skipAnimatedStyle = useAnimatedStyle(() => ({
-    width: skipInitialWidth.value,
+    width: initialWidth.value,
     overflow: "hidden",
-  }), []);
-
-  const saveAnimatedStyle = useAnimatedStyle(() => ({
-    height: saveInitialHeight.value,
-    overflow: "hidden",
-    // padding: saveInitialPadding.value,
-  }), []);
+    color: setup_info.profilePicture !== "" ? "white" : "black",
+    backgroundColor: setup_info.profilePicture !== "" ? "black" : "#E6E6E6"
+  }), [setup_info.profilePicture]);
 
   const toggleModal = () => setModalOpen(!modalOpen);
 
@@ -65,12 +67,9 @@ const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode =
       ...setup_info,
       profilePicture: result.assets[0].uri
     });
-    saveInitialHeight.value = withTiming("21.3%", { duration: 300 });
-    skipInitialWidth.value = withTiming("0%", { duration: 300 });
-    selectInitialWidth.value = withTiming("100%", { duration: 300 });
-    // saveInitialPadding.value = withTiming(12, { duration: 300 });
 
-    // console.log(saveInitialHeight.value);
+    initialWidth.value = withTiming("100%", { duration: 300 });
+    initialDirection.value = withTiming("column-reverse", { duration: 200 });
   }
 
   return (
@@ -106,27 +105,19 @@ const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode =
             )}
           </View>
 
-          <View style={[tw`flex flex-col gap-y-4`]}>
-            <View style={[tw`flex w-[100%] flex-row ${setup_info.profilePicture == "" ? "justify-between gap-x-4" : "justify-center"} items-center`,]}>
-              <TouchableWithoutFeedback onPress={() => { navigation.navigate('address') }}>
-                <Animated.Text numberOfLines={1} style={[tw`text-black text-center bg-[#E6E6E6] py-3 text-lg rounded-full`, { fontFamily: "satoshi-bold" }, skipAnimatedStyle]}>
-                  Skip
-                </Animated.Text>
-              </TouchableWithoutFeedback>
-
-              <TouchableWithoutFeedback onPress={getImageFromDevice}>
-                <Animated.Text style={[tw`text-white mx-auto text-center bg-black py-3 text-lg rounded-full`, { fontFamily: "satoshi-bold" }, selectAnimatedStyle]}>
-                  {setup_info.profilePicture == "" ? "Choose" : "Change"}
-                </Animated.Text>
-              </TouchableWithoutFeedback>
-            </View>
-
+          <Animated.View style={[containerAnimatedStyle]}>
             <TouchableWithoutFeedback onPress={() => { navigation.navigate('address') }}>
-              <Animated.View style={[tw`flex flex-row justify-center items-center bg-black rounded-full`, saveAnimatedStyle]}>
-                <Text style={[tw`text-white text-center text-lg`, { fontFamily: "satoshi-bold" }]}>Save And Continue</Text>
-              </Animated.View>
+              <Animated.Text numberOfLines={1} style={[tw`text-center py-3 text-lg rounded-full`, { fontFamily: "satoshi-bold" }, skipAnimatedStyle]}>
+                {setup_info.profilePicture == "" ? "Skip" : "Save And Continue"}
+              </Animated.Text>
             </TouchableWithoutFeedback>
-          </View>
+
+            <TouchableWithoutFeedback onPress={getImageFromDevice}>
+              <Animated.Text style={[tw`mx-auto text-center py-3 text-lg rounded-full`, { fontFamily: "satoshi-bold" }, selectAnimatedStyle]}>
+                {setup_info.profilePicture == "" ? "Choose" : "Change"}
+              </Animated.Text>
+            </TouchableWithoutFeedback>
+          </Animated.View>
         </View>
       </AccountSetupLayout>
     </>
