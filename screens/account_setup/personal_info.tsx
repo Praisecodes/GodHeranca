@@ -6,8 +6,11 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { useEffect, useState } from "react";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import { useAccountSetupState } from "../../zustand/AccountSetupStore";
+import { cpf_regex, email_regex, fullname_regex, phone_number_regex } from "../../utils/regex_contants";
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 
 const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => {
+  const initialOpacity = useSharedValue(0.7);
   const [dropDownOpen, setDropDownOpen] = useState<boolean>(false);
   const [dropDownOptions, setDropDownOptions] = useState<any[]>([
     { label: "Rider", value: "rider" },
@@ -20,6 +23,10 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
 
   const [typeValue, setTypeValue] = useState<any>(setup_info.accountType);
 
+  const opacityStyle = useAnimatedStyle(() => ({
+    opacity: initialOpacity.value
+  }), []);
+
   const chooseBirthDate = () => {
     DateTimePickerAndroid.open({
       value: new Date(),
@@ -27,11 +34,9 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
       is24Hour: true,
       onChange: ((event, selectedDate) => {
         if (event.type == "dismissed") {
-          // setDateOfBirth(null);
           return;
         }
 
-        // console.log(selectedDate);
         updateSetupInfo({
           ...setup_info,
           dateOfBirth: new Date(`${selectedDate}`).toISOString().split('T')[0]
@@ -43,7 +48,14 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
   }
 
   useEffect(() => {
-    console.log(setup_info);
+    // console.log(setup_info);
+
+    if (!fullname_regex.test(setup_info.fullName) || !email_regex.test(setup_info.email) || !cpf_regex.test(setup_info.cpf) || !phone_number_regex.test(setup_info.phoneNumber) || setup_info.dateOfBirth == "") {
+      initialOpacity.value = withTiming(0.7, { duration: 100 });
+      return;
+    }
+
+    initialOpacity.value = withTiming(1, { duration: 100 });
   }, [setup_info]);
 
   useEffect(() => {
@@ -66,7 +78,7 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
               placeholder="Full Name"
               value={setup_info.fullName}
               validation_message="Enter A Valid Name"
-              valid={false}
+              valid={fullname_regex.test(setup_info.fullName)}
               onTextChange={(text: string) => {
                 updateSetupInfo({
                   ...setup_info,
@@ -80,7 +92,7 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
               keyboardType="email-address"
               value={setup_info.email}
               validation_message="Enter A Valid Email"
-              valid={true}
+              valid={email_regex.test(setup_info.email)}
               onTextChange={(text: string) => {
                 updateSetupInfo({
                   ...setup_info,
@@ -93,7 +105,7 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
               placeholder="CPF"
               keyboardType="number-pad"
               value={setup_info.cpf.toString()}
-              valid={true}
+              valid={cpf_regex.test(setup_info.cpf)}
               validation_message="Please Enter Your CPF"
               onTextChange={(text: string) => {
                 updateSetupInfo({
@@ -107,7 +119,7 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
               placeholder="Phone Number"
               keyboardType="phone-pad"
               validation_message="Enter A Valid Phone Number"
-              valid={true}
+              valid={phone_number_regex.test(setup_info.phoneNumber)}
               value={setup_info.phoneNumber}
               onTextChange={(text: string) => {
                 updateSetupInfo({
@@ -137,10 +149,18 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
           </View>
         </View>
 
-        <TouchableWithoutFeedback onPress={() => { navigation.navigate("profile_picture") }}>
-          <Text style={[tw`text-lg bg-black text-center rounded-full py-4 text-white`, { fontFamily: "satoshi-bold" }]}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            if (!fullname_regex.test(setup_info.fullName) || !email_regex.test(setup_info.email) || !cpf_regex.test(setup_info.cpf) || !phone_number_regex.test(setup_info.phoneNumber) || setup_info.dateOfBirth == "") {
+              return;
+            }
+
+            navigation.navigate("profile_picture");
+          }}
+        >
+          <Animated.Text style={[tw`text-lg bg-black text-center rounded-full py-4 text-white`, { fontFamily: "satoshi-bold" }, opacityStyle]}>
             CONTINUE
-          </Text>
+          </Animated.Text>
         </TouchableWithoutFeedback>
       </View>
     </AccountSetupLayout>
