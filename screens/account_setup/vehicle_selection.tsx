@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, TouchableWithoutFeedback, Text, Image, ImageURISource } from 'react-native';
 import AccountSetupLayout from '../../layouts/account_setup_layout';
 import tw from "twrnc";
+import { useAccountSetupState } from '../../zustand/AccountSetupStore';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 interface IVehicles {
   name: string;
@@ -10,7 +12,6 @@ interface IVehicles {
 }
 
 const VehicleSelection = ({ navigation }: { navigation: any }): React.ReactNode => {
-  const [selected, setSelected] = useState<string>("");
   const [vehicles] = useState<IVehicles[]>([
     {
       "name": "bicycle",
@@ -34,15 +35,33 @@ const VehicleSelection = ({ navigation }: { navigation: any }): React.ReactNode 
     },
   ]);
 
+  const setupInfo = useAccountSetupState((state) => state.setup_info);
+  const updateSetupInfo = useAccountSetupState((state) => state.updateSetupInfo);
+
+  const initialOpacity = useSharedValue(0.7);
+
+  const opacityStyle = useAnimatedStyle(() => ({
+    opacity: initialOpacity.value,
+  }), []);
+
+  useEffect(() => {
+    if (setupInfo.vehicle == "") {
+      initialOpacity.value = withTiming(0.7, { duration: 100 });
+      return;
+    }
+
+    initialOpacity.value = withTiming(1, { duration: 100 });
+  }, [setupInfo.vehicle]);
+
   return (
     <AccountSetupLayout navigation={navigation}>
       <View style={[tw`flex flex-col gap-y-6 justify-between h-[100%]`]}>
         <View style={[tw`flex flex-col gap-y-12 mt-12`]}>
           <View style={[tw`flex flex-row flex-wrap gap-y-5 justify-between items-center`]}>
             {vehicles.map((vehicle, index) => (
-              <TouchableWithoutFeedback key={index} onPress={() => { setSelected(vehicle.name) }}>
+              <TouchableWithoutFeedback key={index} onPress={() => { updateSetupInfo({ ...setupInfo, vehicle: vehicle.name }) }}>
                 <View style={[tw`w-[45%]`]}>
-                  <View style={[tw`w-[100%] h-[9rem] ${(vehicle.name === selected) && "border-[2.4px] border-black"} flex items-center justify-center bg-white rounded-lg`, { elevation: 9 }]}>
+                  <View style={[tw`w-[100%] h-[9rem] ${(vehicle.name === setupInfo.vehicle) ? "border-[2.4px] border-black" : ""} flex items-center justify-center bg-white rounded-lg`, { elevation: 9 }]}>
                     <Image source={vehicle.image} />
                   </View>
                   <Text style={[tw`text-base py-1 text-center`, { fontFamily: "satoshi-bold" }]}>
@@ -58,10 +77,22 @@ const VehicleSelection = ({ navigation }: { navigation: any }): React.ReactNode 
           </Text>
         </View>
 
-        <TouchableWithoutFeedback onPress={() => { if (selected == "bicycle") { navigation.navigate("select_identity_document"); return; }; navigation.navigate("drivers_license") }}>
-          <Text style={[tw`bg-black text-white text-center py-4 rounded-full text-lg`, { fontFamily: "satoshi-bold" }]}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            if (setupInfo.vehicle == "") return;
+
+            if (setupInfo.vehicle == "bicycle") {
+              navigation.navigate("select_identity_document");
+              return;
+            }
+
+            navigation.navigate("drivers_license");
+          }
+          }
+        >
+          <Animated.Text style={[tw`bg-black text-white text-center py-4 rounded-full text-lg`, { fontFamily: "satoshi-bold" }, opacityStyle]}>
             CONTINUE
-          </Text>
+          </Animated.Text>
         </TouchableWithoutFeedback>
       </View>
     </AccountSetupLayout>

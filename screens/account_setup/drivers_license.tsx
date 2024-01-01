@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AccountSetupLayout from '../../layouts/account_setup_layout';
 import { View, TouchableWithoutFeedback, Text, Image } from 'react-native';
 import tw from 'twrnc';
 import { Ionicons } from '@expo/vector-icons';
 import { MediaTypeOptions, launchImageLibraryAsync } from 'expo-image-picker';
 import { SuccessModal } from '../../components/templates/modals';
+import { useAccountSetupState } from '../../zustand/AccountSetupStore';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 const DriversLicense = ({ navigation }: { navigation: any }): React.ReactNode => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const setupInfo = useAccountSetupState((state) => state.setup_info);
+  const updateSetupInfo = useAccountSetupState((state) => state.updateSetupInfo);
 
   const selectLicense = async () => {
     let result = await launchImageLibraryAsync({
@@ -18,22 +22,39 @@ const DriversLicense = ({ navigation }: { navigation: any }): React.ReactNode =>
       return;
     }
 
-    // console.log(result);
-    if (frontImage == null) {
-      setFrontImage(result.assets[0].uri);
+    if (setupInfo.driversLicenseFront == "") {
+      updateSetupInfo({
+        ...setupInfo,
+        driversLicenseFront: result.assets[0].uri
+      });
       return;
     }
 
-    if (backImage == null) {
-      setBackImage(result.assets[0].uri);
+    if (setupInfo.driversLicenseBack == "") {
+      updateSetupInfo({
+        ...setupInfo,
+        driversLicenseBack: result.assets[0].uri
+      });
       return;
     }
   }
 
   const toggleModalOpen = () => setModalOpen(!modalOpen);
 
-  const [frontImage, setFrontImage] = useState<string | null>(null);
-  const [backImage, setBackImage] = useState<string | null>(null);
+  const initialOpacity = useSharedValue(0.7);
+
+  const opacityStyle = useAnimatedStyle(() => ({
+    opacity: initialOpacity.value,
+  }), []);
+
+  useEffect(() => {
+    if (setupInfo.driversLicenseBack == "" || setupInfo.driversLicenseFront == "") {
+      initialOpacity.value = withTiming(0.7, { duration: 100 });
+      return;
+    }
+
+    initialOpacity.value = withTiming(1, { duration: 100 });
+  }, [setupInfo.driversLicenseBack, setupInfo.driversLicenseFront]);
 
   return (
     <>
@@ -65,20 +86,20 @@ const DriversLicense = ({ navigation }: { navigation: any }): React.ReactNode =>
             </View>
 
             <View style={[tw`flex flex-row gap-x-4`]}>
-              {frontImage == null && (
+              {setupInfo.driversLicenseFront == "" && (
                 <View style={[tw`h-[5rem] w-[5rem] bg-[#EDEDED] rounded-md`]} />
               )}
 
-              {frontImage !== null && (
-                <Image source={{ uri: frontImage }} style={[tw`w-[5rem] h-[5rem] rounded-md`]} />
+              {setupInfo.driversLicenseFront !== "" && (
+                <Image source={{ uri: setupInfo.driversLicenseFront }} style={[tw`w-[5rem] h-[5rem] rounded-md`]} />
               )}
 
-              {backImage == null && (
+              {setupInfo.driversLicenseBack == "" && (
                 <View style={[tw`h-[5rem] w-[5rem] bg-[#EDEDED] rounded-md`]} />
               )}
 
-              {backImage !== null && (
-                <Image source={{ uri: backImage }} style={[tw`w-[5rem] h-[5rem] rounded-md`]} />
+              {setupInfo.driversLicenseBack !== "" && (
+                <Image source={{ uri: setupInfo.driversLicenseBack }} style={[tw`w-[5rem] h-[5rem] rounded-md`]} />
               )}
             </View>
 
@@ -87,10 +108,17 @@ const DriversLicense = ({ navigation }: { navigation: any }): React.ReactNode =>
             </Text>
           </View>
 
-          <TouchableWithoutFeedback onPress={() => { toggleModalOpen() }}>
-            <Text style={[tw`bg-black text-white text-center py-4 rounded-full text-lg`, { fontFamily: "satoshi-bold" }]}>
-              CONTINUE
-            </Text>
+          <TouchableWithoutFeedback onPress={() => {
+            if (setupInfo.driversLicenseBack == "" || setupInfo.driversLicenseFront == "") {
+              return;
+            }
+
+            toggleModalOpen()
+          }}
+          >
+            <Animated.Text style={[tw`bg-black text-white text-center py-4 rounded-full text-lg`, { fontFamily: "satoshi-bold" }, opacityStyle]}>
+              FINISH
+            </Animated.Text>
           </TouchableWithoutFeedback>
         </View>
       </AccountSetupLayout>

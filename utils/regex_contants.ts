@@ -1,0 +1,9 @@
+export const username_regex = /^\S+$/;
+export const password_regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+export const fullname_regex = /^[^\d]+$/;
+export const text_regex = /^[^\d]+$/;
+export const fullText_regex = /^(?=.*[a-zA-Z])[a-zA-Z0-9\s\S]+$/;
+export const email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+export const phone_number_regex = /^\+\d{9,}$/;
+export const cpf_regex = /^\d{11}$/;
+export const postal_code_regex = /^\d{6}$/;
