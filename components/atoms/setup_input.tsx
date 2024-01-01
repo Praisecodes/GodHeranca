@@ -29,7 +29,7 @@ const SetupInput = ({ placeholder, value, onTextChange, keyboardType, validation
   }, [valid]);
 
   return (
-    <>
+    <View style={[tw`flex flex-col gap-y-1`]}>
       <TextInput
         placeholder={placeholder}
         value={value}
@@ -37,10 +37,10 @@ const SetupInput = ({ placeholder, value, onTextChange, keyboardType, validation
         onChangeText={onTextChange}
         style={[tw`w-[100%] bg-[#F6F6F6] rounded-md py-4 px-5 text-lg`, { fontFamily: "satoshi" }]}
       />
-      <Animated.Text style={[tw`text-xs text-[#ff0000] mt-[-20px]`, { fontFamily: "satoshi" }, displayStyle]}>
+      <Animated.Text style={[tw`text-xs text-[#ff0000]`, { fontFamily: "satoshi" }, displayStyle]}>
         {validation_message}
       </Animated.Text>
-    </>
+    </View>
   )
 }
 
