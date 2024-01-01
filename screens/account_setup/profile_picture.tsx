@@ -30,7 +30,9 @@ const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode =
   const selectAnimatedStyle = useAnimatedStyle(() => ({
     width: initialWidth.value,
     overflow: "hidden",
-  }), []);
+    color: setup_info.profilePicture == "" ? "white" : "black",
+    backgroundColor: setup_info.profilePicture == "" ? "black" : "#E6E6E6"
+  }), [setup_info.profilePicture]);
 
   const containerAnimatedStyle = useAnimatedStyle(() => ({
     display: "flex",
@@ -41,13 +43,14 @@ const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode =
     justifyContent: "space-between",
     rowGap: 4,
     columnGap: 6,
-    backgroundColor: "#0000ff33"
   }), []);
 
   const skipAnimatedStyle = useAnimatedStyle(() => ({
     width: initialWidth.value,
     overflow: "hidden",
-  }), []);
+    color: setup_info.profilePicture !== "" ? "white" : "black",
+    backgroundColor: setup_info.profilePicture !== "" ? "black" : "#E6E6E6"
+  }), [setup_info.profilePicture]);
 
   const toggleModal = () => setModalOpen(!modalOpen);
 
@@ -104,13 +107,13 @@ const ProfilePicture = ({ navigation }: { navigation: any; }): React.ReactNode =
 
           <Animated.View style={[containerAnimatedStyle]}>
             <TouchableWithoutFeedback onPress={() => { navigation.navigate('address') }}>
-              <Animated.Text numberOfLines={1} style={[tw`text-black text-center bg-[#E6E6E6] py-3 text-lg rounded-full`, { fontFamily: "satoshi-bold" }, skipAnimatedStyle]}>
+              <Animated.Text numberOfLines={1} style={[tw`text-center py-3 text-lg rounded-full`, { fontFamily: "satoshi-bold" }, skipAnimatedStyle]}>
                 {setup_info.profilePicture == "" ? "Skip" : "Save And Continue"}
               </Animated.Text>
             </TouchableWithoutFeedback>
 
             <TouchableWithoutFeedback onPress={getImageFromDevice}>
-              <Animated.Text style={[tw`text-white mx-auto text-center bg-black py-3 text-lg rounded-full`, { fontFamily: "satoshi-bold" }, selectAnimatedStyle]}>
+              <Animated.Text style={[tw`mx-auto text-center py-3 text-lg rounded-full`, { fontFamily: "satoshi-bold" }, selectAnimatedStyle]}>
                 {setup_info.profilePicture == "" ? "Choose" : "Change"}
               </Animated.Text>
             </TouchableWithoutFeedback>
