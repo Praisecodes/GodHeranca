@@ -142,7 +142,7 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
             />
 
             <TouchableWithoutFeedback onPress={() => { chooseBirthDate() }}>
-              <Text style={[tw`text-lg py-4 bg-[#F6F6F6] px-4 ${setup_info.dateOfBirth == "" ? "text-[#A5A5A5]" : "text-black"}`, { fontFamily: "satoshi" }]}>
+              <Text style={[tw`text-lg py-4 bg-[#F6F6F6] mt-6 px-4 ${setup_info.dateOfBirth == "" ? "text-[#A5A5A5]" : "text-black"}`, { fontFamily: "satoshi" }]}>
                 {setup_info.dateOfBirth == "" ? "Date of birth" : setup_info.dateOfBirth}
               </Text>
             </TouchableWithoutFeedback>
@@ -158,7 +158,7 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
             navigation.navigate("profile_picture");
           }}
         >
-          <Animated.Text style={[tw`text-lg bg-black text-center rounded-full py-4 text-white`, { fontFamily: "satoshi-bold" }, opacityStyle]}>
+          <Animated.Text style={[tw`text-lg bg-black text-center rounded-full py-4 mt-4 text-white`, { fontFamily: "satoshi-bold" }, opacityStyle]}>
             CONTINUE
           </Animated.Text>
         </TouchableWithoutFeedback>
