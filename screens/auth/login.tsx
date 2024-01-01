@@ -5,12 +5,28 @@ import { AuthLayout } from "../../layouts";
 import { AuthInput } from "../../components/atoms";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { password_regex, username_regex } from "../../utils/regex_contants";
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 
 const Login = ({ navigation }: { navigation: any }): React.ReactNode => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const initialOpacity = useSharedValue(0.7);
+
+  const opacityStyle = useAnimatedStyle(() => ({
+    opacity: initialOpacity.value
+  }), []);
+
+  useEffect(() => {
+    if (!username_regex.test(username) || !password_regex.test(password)) {
+      initialOpacity.value = withTiming(0.7, { duration: 100 });
+      return;
+    }
+
+    initialOpacity.value = withTiming(1, { duration: 100 });
+  }, [username, password]);
 
   return (
     <AuthLayout page="login" navigation={navigation}>
@@ -45,9 +61,9 @@ const Login = ({ navigation }: { navigation: any }): React.ReactNode => {
           navigation.navigate("account_setup", { screen: "personal_info" });
         }}
       >
-        <Text style={[tw`bg-black mb-4 text-white text-center rounded-full py-4 mx-auto w-[97%] text-xl`, { fontFamily: "satoshi-bold", opacity: ((!username_regex.test(username) || !password_regex.test(password)) ? 0.7 : 1) }]}>
+        <Animated.Text style={[tw`bg-black mb-4 text-white text-center rounded-full py-4 mx-auto w-[97%] text-xl`, { fontFamily: "satoshi-bold" }, opacityStyle]}>
           LOG IN
-        </Text>
+        </Animated.Text>
       </TouchableWithoutFeedback>
 
       <TouchableWithoutFeedback onPress={() => { navigation.navigate('forgot_password') }}>

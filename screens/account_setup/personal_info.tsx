@@ -65,6 +65,8 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
             <SetupInput
               placeholder="Full Name"
               value={setup_info.fullName}
+              validation_message="Enter A Valid Name"
+              valid={false}
               onTextChange={(text: string) => {
                 updateSetupInfo({
                   ...setup_info,
@@ -77,6 +79,8 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
               placeholder="Email"
               keyboardType="email-address"
               value={setup_info.email}
+              validation_message="Enter A Valid Email"
+              valid={true}
               onTextChange={(text: string) => {
                 updateSetupInfo({
                   ...setup_info,
@@ -89,6 +93,8 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
               placeholder="CPF"
               keyboardType="number-pad"
               value={setup_info.cpf.toString()}
+              valid={true}
+              validation_message="Please Enter Your CPF"
               onTextChange={(text: string) => {
                 updateSetupInfo({
                   ...setup_info,
@@ -100,6 +106,8 @@ const PersonalInfo = ({ navigation }: { navigation: any; }): React.ReactNode => 
             <SetupInput
               placeholder="Phone Number"
               keyboardType="phone-pad"
+              validation_message="Enter A Valid Phone Number"
+              valid={true}
               value={setup_info.phoneNumber}
               onTextChange={(text: string) => {
                 updateSetupInfo({
