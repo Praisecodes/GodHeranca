@@ -17,8 +17,13 @@ const MainScreensNavigators = (): React.ReactNode => {
           name="Home"
           component={Home}
           options={{
+            tabBarLabelStyle: { fontFamily: "satoshi-bold", fontSize: 12 },
+            tabBarActiveTintColor: "black",
+            tabBarInactiveTintColor: "#CACACA",
+            tabBarHideOnKeyboard: true,
+            tabBarStyle: { height: "6.5%" },
             tabBarIcon: ({ focused, size, color }) => (
-              <MaterialIcons name="home-filled" size={24} color={focused ? "black" : "#CACACA"} />
+              <MaterialIcons name="home-filled" size={27} color={focused ? "black" : "#CACACA"} />
             )
           }}
         />
@@ -27,8 +32,13 @@ const MainScreensNavigators = (): React.ReactNode => {
           name="Cart"
           component={Cart}
           options={{
+            tabBarLabelStyle: { fontFamily: "satoshi-bold", fontSize: 12 },
+            tabBarActiveTintColor: "black",
+            tabBarInactiveTintColor: "#CACACA",
+            tabBarHideOnKeyboard: true,
+            tabBarStyle: { height: "6.5%" },
             tabBarIcon: ({ focused, size, color }) => (
-              focused ? <MaterialCommunityIcons name="shopping" size={24} color="black" /> : <MaterialCommunityIcons name="shopping-outline" size={24} color={"#CACACA"} />
+              focused ? <MaterialCommunityIcons name="shopping" size={27} color="black" /> : <MaterialCommunityIcons name="shopping-outline" size={27} color={"#CACACA"} />
             )
           }}
         />
@@ -37,8 +47,13 @@ const MainScreensNavigators = (): React.ReactNode => {
           name="Order"
           component={Order}
           options={{
+            tabBarLabelStyle: { fontFamily: "satoshi-bold", fontSize: 12 },
+            tabBarActiveTintColor: "black",
+            tabBarInactiveTintColor: "#CACACA",
+            tabBarHideOnKeyboard: true,
+            tabBarStyle: { height: "6.5%" },
             tabBarIcon: ({ focused, size, color }) => (
-              !focused ? <AntDesign name="shoppingcart" size={24} color="#CACACA" /> : <MaterialIcons name="shopping-cart" size={24} color="black" />
+              !focused ? <AntDesign name="shoppingcart" size={27} color="#CACACA" /> : <MaterialIcons name="shopping-cart" size={27} color="black" />
             )
           }}
         />
@@ -47,8 +62,13 @@ const MainScreensNavigators = (): React.ReactNode => {
           name="Favorites"
           component={Favorites}
           options={{
+            tabBarLabelStyle: { fontFamily: "satoshi-bold", fontSize: 12 },
+            tabBarActiveTintColor: "black",
+            tabBarInactiveTintColor: "#CACACA",
+            tabBarHideOnKeyboard: true,
+            tabBarStyle: { height: "6.5%" },
             tabBarIcon: ({ focused, size, color }) => (
-              !focused ? <MaterialIcons name="favorite-border" size={24} color="#CACACA" /> : <MaterialIcons name="favorite" size={24} color="black" />
+              !focused ? <MaterialIcons name="favorite-border" size={27} color="#CACACA" /> : <MaterialIcons name="favorite" size={27} color="black" />
             )
           }}
         />
@@ -57,8 +77,13 @@ const MainScreensNavigators = (): React.ReactNode => {
           name="Profile"
           component={Profile}
           options={{
+            tabBarLabelStyle: { fontFamily: "satoshi-bold", fontSize: 12 },
+            tabBarActiveTintColor: "black",
+            tabBarInactiveTintColor: "#CACACA",
+            tabBarHideOnKeyboard: true,
+            tabBarStyle: { height: "6.5%" },
             tabBarIcon: ({ focused, size, color }) => (
-              !focused ? <FontAwesome5 name="user" size={24} color="#CACACA" /> : <FontAwesome5 name="user-alt" size={24} color="black" />
+              !focused ? <FontAwesome5 name="user" size={27} color="#CACACA" /> : <FontAwesome5 name="user-alt" size={27} color="black" />
             )
           }}
         />
