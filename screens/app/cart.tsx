@@ -1,11 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { AppScreenLayout } from '../../layouts';
 
 const Cart = () => {
   return (
-    <View>
+    <AppScreenLayout>
       <Text>Cart</Text>
-    </View>
+    </AppScreenLayout>
   )
 }
 

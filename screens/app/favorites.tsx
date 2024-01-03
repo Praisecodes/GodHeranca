@@ -1,11 +1,13 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { AppScreenLayout } from '../../layouts'
 
 const Favorites = () => {
   return (
-    <View>
+    <AppScreenLayout>
       <Text>Favorites</Text>
-    </View>
+    </AppScreenLayout>
+
   )
 }
 

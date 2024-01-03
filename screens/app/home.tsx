@@ -1,11 +1,14 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { AppScreenLayout } from '../../layouts';
 
 const Home = (): React.ReactNode => {
   return (
-    <View>
-      <Text>Home</Text>
-    </View>
+    <AppScreenLayout>
+      <Text>
+        Home
+      </Text>
+    </AppScreenLayout>
   )
 }
 
