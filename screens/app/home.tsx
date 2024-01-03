@@ -5,12 +5,14 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { appRootStackParamList } from '../../navigators/types';
 import tw from 'twrnc';
 import { Ionicons } from '@expo/vector-icons';
+import SearchInput from '../../components/atoms/search_input';
+import SearchButton from '../../components/atoms/search_button';
 
 const Home = ({ navigation }: { navigation: NativeStackNavigationProp<appRootStackParamList, "Home"> }): React.ReactNode => {
 
   return (
     <AppScreenLayout>
-      <View style={[tw`flex flex-row justify-between py-3 items-center`]}>
+      <View style={[tw`flex flex-row mb-3 justify-between py-3 items-center`]}>
         <View style={[tw`flex flex-row items-center gap-x-2`]}>
           <View style={[tw`p-8 rounded-full bg-[#aaaaaa]`]}></View>
 
@@ -25,9 +27,11 @@ const Home = ({ navigation }: { navigation: NativeStackNavigationProp<appRootSta
         </View>
 
         <TouchableWithoutFeedback>
-          <Ionicons name="ios-notifications-outline" size={30} color="black" />
+          <Ionicons name="ios-notifications-outline" size={28} color="black" />
         </TouchableWithoutFeedback>
       </View>
+
+      <SearchButton onPress={() => { console.log("Search Clicked") }} />
     </AppScreenLayout>
   )
 }
