@@ -1,11 +1,14 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { AppScreenLayout } from '../../layouts';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { appRootStackParamList } from '../../navigators/types';
 
-const Profile = () => {
+const Profile = ({ navigation }: { navigation: NativeStackNavigationProp<appRootStackParamList, "Profile"> }) => {
   return (
-    <View>
+    <AppScreenLayout>
       <Text>Profile</Text>
-    </View>
+    </AppScreenLayout>
   )
 }
 

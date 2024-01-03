@@ -1,11 +1,14 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { AppScreenLayout } from '../../layouts';
+import { appRootStackParamList } from '../../navigators/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-const Order = () => {
+const Order = ({ navigation }: { navigation: NativeStackNavigationProp<appRootStackParamList, "Order"> }) => {
   return (
-    <View>
+    <AppScreenLayout>
       <Text>Order</Text>
-    </View>
+    </AppScreenLayout>
   )
 }
 

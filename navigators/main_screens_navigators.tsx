@@ -6,8 +6,9 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { appRootStackParamList } from './types';
 
-const Tabs = createBottomTabNavigator();
+const Tabs = createBottomTabNavigator<appRootStackParamList>();
 
 const MainScreensNavigators = (): React.ReactNode => {
   return (
