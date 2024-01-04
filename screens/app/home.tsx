@@ -32,6 +32,22 @@ const Home = ({ navigation }: { navigation: NativeStackNavigationProp<appRootSta
       </View>
 
       <SearchButton onPress={() => { console.log("Search Clicked") }} />
+
+      <View style={[tw`mt-8 flex flex-col gap-y-6`]}>
+        <View style={[tw`flex flex-row items-center justify-between`]}>
+          <Text style={[tw`text-2xl`, { fontFamily: "satoshi-bold" }]}>
+            Hot Offers
+          </Text>
+
+          <TouchableWithoutFeedback>
+            <Text style={[tw`text-base`, { fontFamily: "satoshi-bold" }]}>
+              See All
+            </Text>
+          </TouchableWithoutFeedback>
+        </View>
+
+        <View style={[tw`rounded-3xl bg-[#E8E8E8] h-[11rem]`]}></View>
+      </View>
     </AppScreenLayout>
   )
 }
