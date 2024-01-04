@@ -7,6 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { appRootStackParamList } from './types';
+import SearchNavigator from './search_navigator';
 
 const Tabs = createBottomTabNavigator<appRootStackParamList>();
 
@@ -88,6 +89,10 @@ const MainScreensNavigators = (): React.ReactNode => {
             )
           }}
         />
+
+        <Tabs.Screen name="Search" component={SearchNavigator} options={{
+          
+        }} />
       </Tabs.Navigator>
     </>
   )
