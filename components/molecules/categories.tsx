@@ -46,8 +46,8 @@ const Categories = () => {
     <View style={[tw`flex flex-row gap-x-8 justify-center items-center gap-y-8 flex-wrap`]}>
       {categories.map((category, index) => (
         <TouchableWithoutFeedback key={index}>
-          <View >
-            <View style={[tw`w-[4rem] h-[4rem] rounded-full flex items-center justify-center bg-[#F3F3F3]`]}>
+          <View style={[tw`flex items-center`]}>
+            <View style={[tw`w-[3.3rem] h-[3.3rem] rounded-full flex items-center justify-center bg-[#F3F3F3]`]}>
               {category.icon}
             </View>
 
